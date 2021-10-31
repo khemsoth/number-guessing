@@ -20,6 +20,7 @@ namespace number_guessing
                 Random rnd = new Random();
                 int number = rnd.Next(1, 101);
                 Console.WriteLine($"Current score: You: {UserScore} | Me: {CompScore}");
+                Console.WriteLine("Ready for your guess!");
                 do
                 {
                     int guess = Convert.ToInt32(Console.ReadLine());
