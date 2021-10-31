@@ -10,40 +10,47 @@ namespace number_guessing
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the number guessing game! Please guess a number!");
-            int attempts = 10;            
-            Random rnd = new Random();
-            int number = rnd.Next(1, 101);
-            do
+            while (true)
             {
-                Console.WriteLine("I am ready for you to guess! Press enter after your guess.");
-                int guess = Int32.Parse(Console.ReadLine());
-                if (guess == null)
+                Console.WriteLine("Welcome to the number guessing game! Please guess a number between 1-100!");
+                int attempts = 10;
+                bool correct = false;
+                Random rnd = new Random();
+                int number = rnd.Next(1, 101);
+                Console.WriteLine($"Number: {number}");
+                do
                 {
-                    Console.WriteLine("You need to enter a number.");
+                    int guess = Convert.ToInt32(Console.ReadLine());
+                    if (guess < number)
+                    {
+                        attempts--;
+                        Console.WriteLine($"You're guess was too low. You have {attempts} guesses left.");
+                    }
+                    else if (guess > number)
+                    {
+                        attempts--;
+                        Console.WriteLine($"You're guess was too high. You have {attempts} guesses left.");
+                    }
+                    else if (guess == number)
+                    {
+                        Console.WriteLine("You've guessed the number!");
+                        correct = true;
+                    }
                 }
-                else if (guess < number)
+                while (correct == false && attempts > 0);
+
+                if (attempts == 0)
                 {
-                    attempts--;
-                    Console.WriteLine($"You're guess was too low. You have {attempts} guesses left.");
+                    Console.WriteLine("Sorry, you are out of attempts!");
                 }
-                else if (guess > number)
+                Console.WriteLine("Would you like to play again? (yes/no)");
+                if(Console.ReadLine().ToLower() != "yes")
                 {
-                    attempts--;
-                    Console.WriteLine($"You're guess was too high. You have {attempts} guesses left.");
-                }
-                else if (guess == number)
-                {
-                    Console.WriteLine("You've guessed the number!");
-                    return;
+                    Console.WriteLine("Okay, Goodbye!");
+                    break;
                 }
             }
-            while (attempts > 0);
-            if(attempts == 0)
-            {
-                Console.WriteLine("Sorry, you are out of attempts!");
-            }
-            
+
 
         }
     }
